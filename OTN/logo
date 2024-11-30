@@ -1,0 +1,51 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Step 1: Create a figure
+fig, ax = plt.subplots(figsize=(10, 10))
+ax.set_aspect('equal')
+ax.set_facecolor('#F5F5F5')  # Light gray background
+plt.axis('off')  # Hide axes for a clean logo
+
+# Step 2: Define parameters for the circular network
+num_nodes = 10
+radius = 2.5
+angles = np.linspace(0, 2 * np.pi, num_nodes, endpoint=False)
+
+# Step 3: Draw interconnected nodes
+node_positions = []
+for i, angle in enumerate(angles):
+    x, y = radius * np.cos(angle), radius * np.sin(angle)
+    node_positions.append((x, y))
+    color = plt.cm.cool(i / num_nodes)  # Gradient effect for nodes
+    ax.plot(x, y, 'o', markersize=18, color=color, alpha=0.9)  # Draw nodes
+
+# Step 4: Connect nodes to form a network
+for i, (x1, y1) in enumerate(node_positions):
+    for x2, y2 in node_positions[i + 1:]:
+        ax.plot([x1, x2], [y1, y2], color='#B0E57C', alpha=0.3, linewidth=1.2)  # Soft green connections
+
+# Step 5: Add a stylized "N" in the center
+ax.text(
+    0, 0, "N", fontsize=120, fontweight='bold', color='#0056B3', ha='center', va='center',
+    path_effects=[plt.matplotlib.patheffects.withStroke(linewidth=4, foreground="white")]
+)
+
+# Step 6: Add the brand name below the "N"
+ax.text(
+    0, -3.5, "OPTIMISTECH NEXUS", fontsize=24, fontweight='bold', color='#0056B3', ha='center', va='center',
+    path_effects=[plt.matplotlib.patheffects.withStroke(linewidth=3, foreground="white")]
+)
+
+# Step 7: Add the tagline below the brand name
+ax.text(
+    0, -4.5, "Where Optimism Meets Technology", fontsize=16, fontstyle='italic', color='#707070', ha='center', va='center'
+)
+
+# Step 8: Add floating decorative dots
+for _ in range(15):
+    x, y = np.random.uniform(-3, 3), np.random.uniform(-3, 3)
+    ax.plot(x, y, 'o', markersize=np.random.uniform(2, 6), color='#D3D3D3', alpha=0.6)
+
+# Step 9: Display the logo
+plt.show()
